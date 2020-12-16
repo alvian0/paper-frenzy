@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         size1 = new Vector3(.4f, .4f, 1f);
-        size2 = new Vector3(.8f, .8f, 1f);
-        size3 = new Vector3(1.2f, 1.2f, 1f);
+        size2 = new Vector3(.7f, .7f, 1f);
+        size3 = new Vector3(1f, 1f, 1f);
         transform.localScale = size1;
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = Speed;
@@ -99,13 +99,18 @@ public class Player : MonoBehaviour
             if (collision.gameObject.GetComponent<Fish>().size <= Phase)
             {
                 Phase++;
-                manager.progresbarupdate();
+                manager.progresbarupdate(.05f);
                 anim.SetTrigger("Eat");
                 Destroy(collision.gameObject);
             }
 
             else
             {
+                if (collision.gameObject.GetComponent<Fish>().anim != null)
+                {
+                    collision.gameObject.GetComponent<Fish>().anim.SetTrigger("Eat");
+                }
+
                 Destroy(gameObject);
             }
 
@@ -113,20 +118,25 @@ public class Player : MonoBehaviour
             if (multiple)
             {
                 manager.ScoreMultiple++;
-                int i = manager.poin += 1 * manager.ScoreMultiple;
+                int i = manager.poin += 100 * manager.ScoreMultiple;
                 manager.poin = i;
                 multipleMater.fillAmount = 1f;
             }
 
             else
             {
-                manager.poin++;
+                manager.poin += 100;
                 multiple = true;
                 multipleMater.fillAmount = 1f;
             }
         }
 
         if (collision.tag == "killer")
+        {
+            Destroy(gameObject);
+        }
+
+        if (collision.tag == "Offset")
         {
             Destroy(gameObject);
         }

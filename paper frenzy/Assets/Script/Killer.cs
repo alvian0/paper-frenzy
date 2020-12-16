@@ -13,5 +13,10 @@ public class Killer : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(transform.position.x - Speed * Time.deltaTime, transform.localPosition.y, transform.localPosition.z);
+
+        if (transform.position.x <= -30)
+        {
+            Destroy(gameObject);
+        }
     }
 }

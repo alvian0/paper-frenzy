@@ -6,24 +6,23 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Image ProgressBar;
-    public float FillAmout = 0.1f;
     public int poin;
     public Text ScoreMater, MultipleMater;
     public int ScoreMultiple = 1;
 
     void Start()
     {
-        
+        ProgressBar.fillAmount = 0f;
     }
 
     void Update()
     {
-        ScoreMater.text = poin.ToString();
+        ScoreMater.text = "Score : " + poin.ToString();
         MultipleMater.text = ScoreMultiple.ToString() + "x";
     }
 
-    public void progresbarupdate()
+    public void progresbarupdate(float FillAmount)
     {
-        ProgressBar.fillAmount += FillAmout;
+        ProgressBar.fillAmount += FillAmount;
     }
 }

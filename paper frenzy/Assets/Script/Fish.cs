@@ -6,6 +6,9 @@ public class Fish : MonoBehaviour
 {
     public float Speed, maxY, minY, maxX, minX;
     public int size = 1;
+    public Animator anim;
+    public float ActualFishSize = .4f;
+    public float lifeTime = 5f;
 
     Vector2 poss;
     float currentXpos;
@@ -13,7 +16,7 @@ public class Fish : MonoBehaviour
     void Start()
     {
         currentXpos = transform.position.x;
-        poss = new Vector2(Random.Range(minX, maxY), Random.Range(minY, maxY));
+        poss = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
 
     void Update()
@@ -27,14 +30,24 @@ public class Fish : MonoBehaviour
 
         if (transform.position.x > currentXpos)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(ActualFishSize, ActualFishSize, 1);
             currentXpos = transform.position.x;
         }
 
         if (transform.position.x < currentXpos)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-ActualFishSize, ActualFishSize, 1);
             currentXpos = transform.position.x;
+        }
+
+        if (lifeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        else
+        {
+            lifeTime -= Time.deltaTime;
         }
     }
 }

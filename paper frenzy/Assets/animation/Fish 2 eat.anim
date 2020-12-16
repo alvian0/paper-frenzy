@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerEat
+  m_Name: Fish 2 eat
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -5420295182038696175, guid: 1f2be2f7215ebd74bb428daf75b20ee1, type: 3}
+      value: {fileID: 5919223428408588373, guid: cdde4186fe5d9b64290e92532f20c310, type: 3}
     - time: 0.16666667
-      value: {fileID: 519746960156509853, guid: 1f2be2f7215ebd74bb428daf75b20ee1, type: 3}
+      value: {fileID: 4249253127793672862, guid: cdde4186fe5d9b64290e92532f20c310, type: 3}
     attribute: m_Sprite
-    path: FishSet 1_0
+    path: New Sprite
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -35,15 +35,15 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1788834694
+      path: 2673217936
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -5420295182038696175, guid: 1f2be2f7215ebd74bb428daf75b20ee1, type: 3}
-    - {fileID: 519746960156509853, guid: 1f2be2f7215ebd74bb428daf75b20ee1, type: 3}
+    - {fileID: 5919223428408588373, guid: cdde4186fe5d9b64290e92532f20c310, type: 3}
+    - {fileID: 4249253127793672862, guid: cdde4186fe5d9b64290e92532f20c310, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
