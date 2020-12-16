@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     public float Speed, maxY, minY, maxX, minX;
+    public int size = 1;
 
     Vector2 poss;
     float currentXpos;
