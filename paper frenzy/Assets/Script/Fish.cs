@@ -9,6 +9,7 @@ public class Fish : MonoBehaviour
     public Animator anim;
     public float ActualFishSize = .4f;
     public float lifeTime = 5f;
+    public bool HasLifeTime = true;
 
     Vector2 poss;
     float currentXpos;
@@ -40,14 +41,18 @@ public class Fish : MonoBehaviour
             currentXpos = transform.position.x;
         }
 
-        if (lifeTime <= 0)
+        if (HasLifeTime)
         {
-            Destroy(gameObject);
-        }
+            if (lifeTime <= 0)
+            {
+                Destroy(gameObject);
+            }
 
-        else
-        {
-            lifeTime -= Time.deltaTime;
+            else
+            {
+                lifeTime -= Time.deltaTime;
+            }
+
         }
     }
 }

@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         {
             TImeRemains.SetActive(true);
             TimeRemainsBar.fillAmount = timeremain;
+            Destroy(GameObject.FindGameObjectWithTag("killer"));
 
             for (int i = Spawner.Length - 1; i > 0; i--)
             {
@@ -65,11 +66,11 @@ public class GameManager : MonoBehaviour
 
             if (timeremain <= 0)
             {
+                player.SetHighscore(poin);
                 TImeRemains.SetActive(false);
                 FinishScreen.SetActive(true);
                 InGameUI.SetActive(false);
                 Destroy(GameObject.FindGameObjectWithTag("Fish"));
-                Destroy(GameObject.FindGameObjectWithTag("killer"));
                 Destroy(GameObject.FindGameObjectWithTag("Player"));
             }
 
@@ -111,6 +112,11 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void UnPused()

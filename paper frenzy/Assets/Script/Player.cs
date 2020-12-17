@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void SetHighscore(int scores)
+    public void SetHighscore(int scores)
     {
         if (PlayerPrefs.GetInt("HS") < scores)
         {
