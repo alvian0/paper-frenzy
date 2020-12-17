@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 2
   maxY: 19
-  minY: 9
+  minY: -5
   maxX: 10
   minX: -10
   size: 3

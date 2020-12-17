@@ -6,15 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Image ProgressBar;
+    public Image ProgressBar, TimeRemainsBar;
     public int poin;
     public Text ScoreMater, MultipleMater;
     public int ScoreMultiple = 1;
     public float CurrentProgress = 0f;
     public Player player;
     public bool gameFinish = false, GameOver = false;
-    public GameObject GameOverScreen, FinishScreen, InGameUI, PauseScreen;
-    public Text DeathMessage, FinalScore;
+    public GameObject GameOverScreen, FinishScreen, InGameUI, PauseScreen, TImeRemains;
+    public Text DeathMessage, GameOverScore, FinalScore, HighScore;
+    public float timeremain = 3f;
+    public GameObject[] Spawner;
     bool IsPaused = false;
 
     void Start()
@@ -27,14 +29,19 @@ public class GameManager : MonoBehaviour
     {
         if (player != null)
         {
-            if (CurrentProgress >= 0.3f)
+            if (CurrentProgress >= 0.33f)
             {
                 player.Phase = 2;
             }
 
-            if (CurrentProgress >= 0.6)
+            if (CurrentProgress >= 0.66)
             {
                 player.Phase = 3;
+            }
+
+            if (CurrentProgress >= 1)
+            {
+                gameFinish = true;
             }
         }
 
@@ -44,6 +51,32 @@ public class GameManager : MonoBehaviour
             GameOverScreen.SetActive(true);
             Destroy(GameObject.FindGameObjectWithTag("Fish"));
             Destroy(GameObject.FindGameObjectWithTag("killer"));
+        }
+
+        if (gameFinish)
+        {
+            TImeRemains.SetActive(true);
+            TimeRemainsBar.fillAmount = timeremain;
+
+            for (int i = Spawner.Length - 1; i > 0; i--)
+            {
+                Spawner[i].SetActive(false);
+            }
+
+            if (timeremain <= 0)
+            {
+                TImeRemains.SetActive(false);
+                FinishScreen.SetActive(true);
+                InGameUI.SetActive(false);
+                Destroy(GameObject.FindGameObjectWithTag("Fish"));
+                Destroy(GameObject.FindGameObjectWithTag("killer"));
+                Destroy(GameObject.FindGameObjectWithTag("Player"));
+            }
+
+            else
+            {
+                timeremain -= Time.deltaTime;
+            }
         }
 
         if (!GameOver && !gameFinish)
@@ -64,7 +97,9 @@ public class GameManager : MonoBehaviour
 
         CurrentProgress = ProgressBar.fillAmount;
         ScoreMater.text = "Score : " + poin.ToString();
+        GameOverScore.text = "Score\n" + poin.ToString();
         FinalScore.text = "Score\n" + poin.ToString();
+        HighScore.text = "High Score\n" + PlayerPrefs.GetInt("HS");
         MultipleMater.text = ScoreMultiple.ToString() + "x";
     }
 

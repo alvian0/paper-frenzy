@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public Image multipleMater;
     public GameObject MultiMater;
     public int Phase = 1;
-    public AudioSource sfx;
+    public AudioSource sfx, sfxdead;
 
     public Animator anim;
     Rigidbody2D rb;
@@ -47,12 +47,12 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(size1.x, size1.y);
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.LeftShift))
         {
             Speed = currentSpeed * 1.5f;
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.LeftShift))
         {
             Speed = currentSpeed;
         }
@@ -108,6 +108,7 @@ public class Player : MonoBehaviour
                 if (collision.gameObject.GetComponent<Fish>().anim != null)
                 {
                     sfx.Play();
+                    sfxdead.Play();
                     collision.gameObject.GetComponent<Fish>().anim.SetTrigger("Eat");
                 }
 
@@ -139,6 +140,7 @@ public class Player : MonoBehaviour
             SetHighscore(manager.poin);
             manager.DeathMessage.text = "You get eaten by a big Shark";
             manager.GameOver = true;
+            sfxdead.Play();
             Destroy(gameObject);
         }
 
@@ -147,6 +149,7 @@ public class Player : MonoBehaviour
             SetHighscore(manager.poin);
             manager.DeathMessage.text = "You trying to get out";
             manager.GameOver = true;
+            sfxdead.Play();
             Destroy(gameObject);
         }
     }
