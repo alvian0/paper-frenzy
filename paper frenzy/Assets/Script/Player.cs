@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public Image multipleMater;
     public GameObject MultiMater;
     public int Phase = 1;
+    public AudioSource sfx;
 
     public Animator anim;
     Rigidbody2D rb;
@@ -68,6 +69,11 @@ public class Player : MonoBehaviour
                 MultiMater.SetActive(false);
             }
         }
+
+        if (manager.ProgressBar.fillAmount >= 1)
+        {
+            manager.gameFinish = true;
+        }
     }
 
     private void FixedUpdate()
@@ -91,6 +97,7 @@ public class Player : MonoBehaviour
 
             if (collision.gameObject.GetComponent<Fish>().size <= Phase)
             {
+                sfx.Play();
                 manager.progresbarupdate(.01f);
                 anim.SetTrigger("Eat");
                 Destroy(collision.gameObject);
@@ -100,9 +107,13 @@ public class Player : MonoBehaviour
             {
                 if (collision.gameObject.GetComponent<Fish>().anim != null)
                 {
+                    sfx.Play();
                     collision.gameObject.GetComponent<Fish>().anim.SetTrigger("Eat");
                 }
 
+                SetHighscore(manager.poin);
+                manager.DeathMessage.text = "You get eaten by other fish";
+                manager.GameOver = true;
                 Destroy(gameObject);
             }
 
@@ -125,11 +136,17 @@ public class Player : MonoBehaviour
 
         if (collision.tag == "killer")
         {
+            SetHighscore(manager.poin);
+            manager.DeathMessage.text = "You get eaten by a big Shark";
+            manager.GameOver = true;
             Destroy(gameObject);
         }
 
         if (collision.tag == "Offset")
         {
+            SetHighscore(manager.poin);
+            manager.DeathMessage.text = "You trying to get out";
+            manager.GameOver = true;
             Destroy(gameObject);
         }
     }
@@ -146,6 +163,14 @@ public class Player : MonoBehaviour
         {
             transform.localScale = size3;
             size1 = size3;
+        }
+    }
+
+    void SetHighscore(int scores)
+    {
+        if (PlayerPrefs.GetInt("HS") < scores)
+        {
+            PlayerPrefs.SetInt("HS", scores);
         }
     }
 }

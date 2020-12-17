@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,9 +12,14 @@ public class GameManager : MonoBehaviour
     public int ScoreMultiple = 1;
     public float CurrentProgress = 0f;
     public Player player;
+    public bool gameFinish = false, GameOver = false;
+    public GameObject GameOverScreen, FinishScreen, InGameUI, PauseScreen;
+    public Text DeathMessage, FinalScore;
+    bool IsPaused = false;
 
     void Start()
     {
+        Time.timeScale = 1f;
         ProgressBar.fillAmount = 0f;
     }
 
@@ -32,13 +38,59 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (GameOver)
+        {
+            InGameUI.SetActive(false);
+            GameOverScreen.SetActive(true);
+            Destroy(GameObject.FindGameObjectWithTag("Fish"));
+            Destroy(GameObject.FindGameObjectWithTag("killer"));
+        }
+
+        if (!GameOver && !gameFinish)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (IsPaused)
+                {
+                    UnPused();
+                }
+
+                else
+                {
+                    Paused();
+                }
+            }
+        }
+
         CurrentProgress = ProgressBar.fillAmount;
         ScoreMater.text = "Score : " + poin.ToString();
+        FinalScore.text = "Score\n" + poin.ToString();
         MultipleMater.text = ScoreMultiple.ToString() + "x";
     }
 
     public void progresbarupdate(float FillAmount)
     {
         ProgressBar.fillAmount += FillAmount;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void UnPused()
+    {
+        Time.timeScale = 1f;
+        InGameUI.SetActive(true);
+        PauseScreen.SetActive(false);
+        IsPaused = false;
+    }
+
+    public void Paused()
+    {
+        Time.timeScale = 0f;
+        InGameUI.SetActive(false);
+        PauseScreen.SetActive(true);
+        IsPaused = true;
     }
 }
