@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public int poin;
     public Text ScoreMater, MultipleMater;
     public int ScoreMultiple = 1;
+    public float CurrentProgress = 0f;
+    public Player player;
 
     void Start()
     {
@@ -17,6 +19,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (player != null)
+        {
+            if (CurrentProgress >= 0.3f)
+            {
+                player.Phase = 2;
+            }
+
+            if (CurrentProgress >= 0.6)
+            {
+                player.Phase = 3;
+            }
+        }
+
+        CurrentProgress = ProgressBar.fillAmount;
         ScoreMater.text = "Score : " + poin.ToString();
         MultipleMater.text = ScoreMultiple.ToString() + "x";
     }

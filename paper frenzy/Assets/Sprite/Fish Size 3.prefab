@@ -204,12 +204,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 2
   maxY: 19
-  minY: -5
+  minY: 9
   maxX: 10
   minX: -10
   size: 3
   anim: {fileID: 825462165706723339}
   ActualFishSize: 1
+  lifeTime: 5
 --- !u!60 &825462165009345730
 PolygonCollider2D:
   m_ObjectHideFlags: 0

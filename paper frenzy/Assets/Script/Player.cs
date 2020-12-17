@@ -79,27 +79,19 @@ public class Player : MonoBehaviour
     {
         if (collision.tag == "Fish")
         {
-            if (Phase == 1)
+            if (manager.CurrentProgress >= 0.33)
             {
-                transform.localScale = new Vector3(size1.x, size1.y);
+                NextPhase(true);
             }
 
-            if (Phase == 2)
+            if (manager.CurrentProgress >= 0.66)
             {
-                transform.localScale = new Vector3(size2.x, size2.y);
-                size1 = size2;
-            }
-
-            if (Phase == 3)
-            {
-                transform.localScale = new Vector3(size3.x, size3.y);
-                size1 = size3;
+                NextPhase(false);
             }
 
             if (collision.gameObject.GetComponent<Fish>().size <= Phase)
             {
-                Phase++;
-                manager.progresbarupdate(.05f);
+                manager.progresbarupdate(.01f);
                 anim.SetTrigger("Eat");
                 Destroy(collision.gameObject);
             }
@@ -139,6 +131,21 @@ public class Player : MonoBehaviour
         if (collision.tag == "Offset")
         {
             Destroy(gameObject);
+        }
+    }
+
+    void NextPhase(bool Phase2)
+    {
+        if (Phase2)
+        {
+            transform.localScale = size2;
+            size1 = size2;
+        }
+
+        if (!Phase2)
+        {
+            transform.localScale = size3;
+            size1 = size3;
         }
     }
 }
